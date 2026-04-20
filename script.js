@@ -204,12 +204,18 @@ const contactForm = document.getElementById('contactForm');
 const submitBtn = document.getElementById('submitBtn');
 const formSuccess = document.getElementById('formSuccess');
 
+// Initialize EmailJS with your public key
+(function() {
+    emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your EmailJS public key
+})();
+
 if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
         const name = document.getElementById('name').value.trim();
         const email = document.getElementById('email').value.trim();
+        const service = document.getElementById('service').value;
         const message = document.getElementById('message').value.trim();
 
         if (!name || !email || !message) return;
@@ -217,16 +223,38 @@ if (contactForm) {
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Sending...</span>';
 
-        setTimeout(() => {
-            submitBtn.innerHTML = '<i class="fas fa-check"></i> <span>Message Sent!</span>';
-            formSuccess.classList.add('visible');
-            contactForm.reset();
+        // Prepare template parameters
+        const templateParams = {
+            from_name: name,
+            from_email: email,
+            service_type: service,
+            message: message,
+            to_email: 'mhdurrabrehan@gmail.com'
+        };
 
-            setTimeout(() => {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> <span>Send Message</span>';
-            }, 3500);
-        }, 1500);
+        // Send email using EmailJS
+        emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams) // Replace with your service and template IDs
+            .then((response) => {
+                console.log('SUCCESS!', response.status, response.text);
+                submitBtn.innerHTML = '<i class="fas fa-check"></i> <span>Message Sent!</span>';
+                formSuccess.classList.add('visible');
+                contactForm.reset();
+
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> <span>Send Message</span>';
+                    formSuccess.classList.remove('visible');
+                }, 5000);
+            }, (error) => {
+                console.log('FAILED...', error);
+                submitBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> <span>Failed to Send</span>';
+                alert('Sorry, there was an error sending your message. Please try again or contact me directly at mhdurrabrehan@gmail.com');
+
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> <span>Send Message</span>';
+                }, 3000);
+            });
     });
 }
 
