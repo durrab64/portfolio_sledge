@@ -1193,3 +1193,442 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
   .back-to-top { bottom: 16px; right: 16px; }
 }
+
+/* ====================================
+   PORTFOLIO — FILTER ICONS
+==================================== */
+.filter-btn i {
+  font-size: 0.82rem;
+  opacity: 0.85;
+}
+.filter-btn:hover i,
+.filter-btn.active i {
+  opacity: 1;
+}
+
+/* ====================================
+   PORTFOLIO — CARD BADGES
+==================================== */
+.card-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  color: #fff;
+  z-index: 2;
+  transition: transform var(--transition), opacity var(--transition);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.card-badge--instagram {
+  background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+  box-shadow: 0 2px 12px rgba(220, 39, 67, 0.45);
+}
+.card-badge--shorts {
+  background: linear-gradient(135deg, #ff0000, #cc0000);
+  box-shadow: 0 2px 12px rgba(255, 0, 0, 0.4);
+}
+.portfolio-card:hover .card-badge {
+  transform: scale(1.12);
+}
+
+/* ====================================
+   PORTFOLIO — INSTAGRAM CARDS  (1:1)
+==================================== */
+.portfolio-img-wrap--square {
+  aspect-ratio: 1 / 1 !important;
+}
+.portfolio-card--instagram {
+  cursor: pointer;
+}
+.portfolio-card--instagram:focus-visible {
+  outline: 2px solid var(--accent-purple);
+  outline-offset: 3px;
+}
+
+/* ====================================
+   PORTFOLIO — SHORTS CARDS  (9:16)
+==================================== */
+
+/* The card controls max-width so height derives from aspect-ratio cleanly */
+.portfolio-card--shorts {
+  cursor: pointer;
+  max-width: 240px;    /* wide enough for 9:16 at comfortable height ~427px */
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;         /* shrinks below 240px on narrow viewports */
+}
+.portfolio-card--shorts:focus-visible {
+  outline: 2px solid var(--accent-purple);
+  outline-offset: 3px;
+}
+
+/* Wrap uses aspect-ratio only — NO max-height so the ratio is never broken */
+.portfolio-img-wrap--vertical {
+  aspect-ratio: 9 / 16 !important;
+  /* max-height intentionally removed — width drives height via aspect-ratio */
+}
+
+/* Video fills the vertical card */
+.shorts-preview-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.portfolio-card--shorts:hover .shorts-preview-video {
+  transform: scale(1.04);
+}
+
+/* Centered play hint that fades on hover */
+.shorts-play-hint {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  pointer-events: none;
+  transition: opacity var(--transition);
+}
+.shorts-play-hint i {
+  width: 54px;
+  height: 54px;
+  background: rgba(0, 0, 0, 0.55);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: #fff;
+  backdrop-filter: blur(4px);
+  padding-left: 4px; /* optical centering for play icon */
+  transition: background var(--transition), transform var(--transition);
+}
+.portfolio-card--shorts:hover .shorts-play-hint {
+  opacity: 0;
+}
+
+/* ====================================
+   PORTFOLIO — EMPTY STATE
+==================================== */
+.portfolio-empty-state {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 72px 32px;
+  border: 2px dashed rgba(124, 58, 237, 0.25);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  background: rgba(124, 58, 237, 0.04);
+}
+.portfolio-empty-icon {
+  width: 72px;
+  height: 72px;
+  background: rgba(124, 58, 237, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.2);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: var(--accent-light-purple);
+}
+.portfolio-empty-state h3 {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.portfolio-empty-state p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  max-width: 400px;
+  line-height: 1.7;
+}
+.portfolio-empty-state code {
+  font-size: 0.8em;
+  background: rgba(124, 58, 237, 0.12);
+  border: 1px solid rgba(124, 58, 237, 0.2);
+  border-radius: 4px;
+  padding: 1px 6px;
+  color: var(--accent-light-purple);
+  font-family: 'Courier New', monospace;
+}
+
+/* ====================================
+   PORTFOLIO — MODAL OVERLAY BASE
+==================================== */
+.portfolio-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.portfolio-modal.active {
+  display: flex;
+}
+.portfolio-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(7, 7, 13, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  animation: modalFadeIn 0.3s ease forwards;
+}
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Panel shared styles */
+.portfolio-modal__panel {
+  position: relative;
+  z-index: 1;
+  background: var(--bg-secondary);
+  border: 1px solid rgba(124, 58, 237, 0.25);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(124, 58, 237, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: modalSlideUp 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  max-height: 92vh;
+}
+@keyframes modalSlideUp {
+  from { opacity: 0; transform: translateY(30px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Close button */
+.portfolio-modal__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 10;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  transition: background var(--transition), color var(--transition), transform var(--transition);
+  cursor: pointer;
+}
+.portfolio-modal__close:hover {
+  background: rgba(124, 58, 237, 0.25);
+  border-color: rgba(124, 58, 237, 0.4);
+  color: #fff;
+  transform: rotate(90deg);
+}
+
+/* Info block (title, desc, CTA) */
+.portfolio-modal__info {
+  padding: 20px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.portfolio-modal__platform {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-light-purple);
+}
+.portfolio-modal__title {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+.portfolio-modal__desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin: 0;
+}
+.portfolio-modal__action {
+  margin-top: 8px;
+  align-self: flex-start;
+  font-size: 0.88rem;
+  padding: 11px 22px;
+}
+.portfolio-modal__action--yt {
+  background: linear-gradient(135deg, #ff0000, #cc0000);
+  box-shadow: 0 4px 20px rgba(255, 0, 0, 0.35);
+}
+.portfolio-modal__action--yt:hover {
+  box-shadow: 0 8px 30px rgba(255, 0, 0, 0.55);
+}
+
+/* Prevent background scroll while any modal is open */
+body.modal-open {
+  overflow: hidden;
+}
+
+/* ====================================
+   INSTAGRAM MODAL PANEL
+==================================== */
+.portfolio-modal__panel--instagram {
+  width: min(520px, 100%);
+  flex-direction: column;
+}
+.portfolio-modal__img-wrap {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--bg-card);
+}
+.portfolio-modal__img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* ====================================
+   SHORTS MODAL PANEL
+==================================== */
+.portfolio-modal__panel--shorts {
+  width: min(380px, 100%);
+  flex-direction: column;
+}
+.portfolio-modal__video-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  max-height: 60vh;
+  background: #000;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+#shortsModalVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Play / Pause button on the modal video */
+.shorts-modal__play-btn {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+  backdrop-filter: blur(6px);
+}
+.shorts-modal__play-btn:hover {
+  background: rgba(124, 58, 237, 0.7);
+  border-color: var(--accent-purple);
+  transform: scale(1.1);
+}
+
+/* ====================================
+   PORTFOLIO GRID — MIXED LAYOUT TWEAKS
+   Keep vertical Shorts cards from blowing
+   up the row height in the shared grid.
+==================================== */
+.portfolio-card--shorts,
+.portfolio-card--instagram {
+  align-self: start;
+}
+
+/* ====================================
+   RESPONSIVE — NEW ELEMENTS
+==================================== */
+@media (max-width: 768px) {
+  /* Shrink Shorts card width on tablet so height scales down proportionally */
+  .portfolio-card--shorts {
+    max-width: 200px;
+  }
+
+  /* Modal panels go full-width on small screens */
+  .portfolio-modal__panel--instagram,
+  .portfolio-modal__panel--shorts {
+    width: 100%;
+    max-width: 420px;
+    border-radius: var(--radius-lg);
+  }
+
+  /* Shorter video area on mobile */
+  .portfolio-modal__video-wrap {
+    max-height: 50vh;
+  }
+
+  /* Info section tighter */
+  .portfolio-modal__info {
+    padding: 16px 18px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Shorts cards go naturally narrow on mobile */
+  .portfolio-card--shorts {
+    max-width: 170px;
+  }
+
+  .portfolio-modal {
+    padding: 12px;
+    align-items: flex-end;
+  }
+
+  .portfolio-modal__panel--instagram,
+  .portfolio-modal__panel--shorts {
+    border-radius: var(--radius-lg) var(--radius-lg) var(--radius-md) var(--radius-md);
+    max-height: 95dvh;
+    overflow-y: auto;
+  }
+
+  .portfolio-modal__panel--shorts {
+    width: 100%;
+  }
+
+  .portfolio-modal__video-wrap {
+    max-height: 45vh;
+  }
+
+  .shorts-play-hint i {
+    width: 44px;
+    height: 44px;
+    font-size: 0.95rem;
+  }
+
+  .portfolio-empty-state {
+    padding: 48px 20px;
+  }
+}
