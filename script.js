@@ -168,8 +168,9 @@ if (skillsSection) skillObserver.observe(skillsSection);
 
 
 // ─── Portfolio Data ──────────────────────────────────────────────────────────
-// To add a new item, add an object to this array and place the asset file in
-// the corresponding folder.
+// Assets are served from Cloudinary CDN (cloud: dsmoqcyx).
+// To add a new item: upload the file to Cloudinary Media Library, then add an
+// object below using the helpers CLD_IMG (images) or CLD_VID (videos).
 //
 // Thumbnail / Branding / Motion items:
 //   { category: 'thumbnail'|'branding'|'motion', title, catLabel, image, description }
@@ -180,6 +181,11 @@ if (skillsSection) skillObserver.observe(skillsSection);
 // YouTube Shorts items:
 //   { category: 'shorts', title, video, poster, description (optional), youtubeUrl (optional) }
 
+// ── Cloudinary helpers ────────────────────────────────────────────────────────
+// f_auto → serves WebP/AVIF automatically; q_auto → smart quality compression
+const CLD_IMG = 'https://res.cloudinary.com/dsmoqcyx/image/upload/f_auto,q_auto';
+const CLD_VID = 'https://res.cloudinary.com/dsmoqcyx/video/upload';
+
 const portfolioData = [
 
     // ── Thumbnails ────────────────────────────────────────────────────────────
@@ -187,134 +193,135 @@ const portfolioData = [
         category: 'thumbnail',
         catLabel: 'Thumbnail Design',
         title: 'Arslan Ash – Pro Gamer',
-        image: 'thumbnails/arslan ash.pngcpy.png',
+        image: `${CLD_IMG}/arslan_ash.pngcpy.png`,
         description: 'High-impact gaming thumbnail for top Tekken pro player.',
     },
     {
         category: 'thumbnail',
         catLabel: 'Thumbnail Design',
         title: 'Claudio – Cinematic Edit',
-        image: 'thumbnails/claudio thumbnail.png cpy.png',
+        image: `${CLD_IMG}/claudio_thumbnail.png_cpy.png`,
         description: 'Cinematic character-focused thumbnail with strong typography.',
     },
     {
         category: 'thumbnail',
         catLabel: 'Thumbnail Design',
         title: 'Dominant',
-        image: 'thumbnails/dominant cpy.jpg',
+        image: `${CLD_IMG}/dominant_cpy.jpg`,
         description: 'Power-forward thumbnail communicating dominance and authority.',
     },
     {
         category: 'thumbnail',
         catLabel: 'Thumbnail Design',
         title: 'Feng – Character Art',
-        image: 'thumbnails/feng gay.png',
+        image: `${CLD_IMG}/feng_gay.png`,
         description: 'Character-driven thumbnail with expressive visual language.',
     },
     {
         category: 'thumbnail',
         catLabel: 'Thumbnail Design',
         title: 'Alisa – Bad Matchup',
-        image: 'thumbnails/alisa_bad_matchup.jpg',
+        image: `${CLD_IMG}/alisa_bad_matchup.jpg`,
         description: 'Strategic thumbnail highlighting competitive gaming dynamics.',
     },
     {
         category: 'thumbnail',
         catLabel: 'Thumbnail Design',
         title: 'Atif – Destroyed Me',
-        image: 'thumbnails/atif but destroyed me.png',
+        image: `${CLD_IMG}/atif_but_destroyed_me.png`,
         description: 'Intense gaming moment captured in thumbnail design.',
     },
     {
         category: 'thumbnail',
         catLabel: 'Thumbnail Design',
         title: 'Low vs Butt – Reaction',
-        image: 'thumbnails/lowvsbutt_reaction.jpg',
+        image: `${CLD_IMG}/lowvsbutt_reaction.jpg`,
         description: 'Reaction thumbnail for viral gaming content.',
     },
     {
         category: 'thumbnail',
         catLabel: 'Thumbnail Design',
         title: 'Shani King',
-        image: 'thumbnails/shaniking_cpy.jpg',
+        image: `${CLD_IMG}/shaniking_cpy.jpg`,
         description: 'Royal-themed thumbnail with bold visual impact.',
     },
     {
         category: 'thumbnail',
         catLabel: 'Thumbnail Design',
         title: 'Shani King – Vol. 2',
-        image: 'thumbnails/shani_king_2_cpy.jpg',
+        image: `${CLD_IMG}/shani_king_2_cpy.jpg`,
         description: 'Sequel design maintaining strong brand identity.',
     },
     {
         category: 'thumbnail',
         catLabel: 'Thumbnail Design',
         title: 'Yosh – Gaming',
-        image: 'thumbnails/yosh.jpgcy.jpg',
+        image: `${CLD_IMG}/yosh.jpgcy.jpg`,
         description: 'Dynamic gaming thumbnail with engaging visuals.',
     },
     {
         category: 'thumbnail',
         catLabel: 'Thumbnail Design',
         title: 'Bebar Bhai',
-        image: 'thumbnails/bebar bhai yt thumbnail 1.jpg',
+        image: `${CLD_IMG}/bebar_bhai_yt_thumbnail_1.jpg`,
         description: 'Custom YouTube thumbnail with bold visual design.',
     },
     {
         category: 'thumbnail',
         catLabel: 'Thumbnail Design',
         title: 'Ishn Williams vs Jac 8',
-        image: 'thumbnails/ishn williams vs jac8.jpg',
+        image: `${CLD_IMG}/ishn_williams_vs_jac8.jpg`,
         description: 'High-stakes match thumbnail capturing competitive intensity.',
     },
     {
         category: 'thumbnail',
         catLabel: 'Thumbnail Design',
         title: 'Law Buffed',
-        image: 'thumbnails/lawbuffed.jpg',
+        image: `${CLD_IMG}/lawbuffed.jpg`,
         description: 'Punchy thumbnail focused on gameplay meta shift.',
     },
     {
         category: 'thumbnail',
         catLabel: 'Thumbnail Design',
         title: 'Tick Tick Tikok',
-        image: 'thumbnails/tickticktikok.jpg',
+        image: `${CLD_IMG}/tickticktikok.jpg`,
         description: 'Energetic thumbnail with vibrant visual storytelling.',
     },
     {
         category: 'thumbnail',
         catLabel: 'Thumbnail Design',
         title: 'Williams vs Abid Rajpoot',
-        image: 'thumbnails/williams vs abid rajpoot.jpg',
+        image: `${CLD_IMG}/williams_vs_abid_rajpoot.jpg`,
         description: 'Rivalry match thumbnail with striking character contrast.',
     },
+
     // ── Motion Graphics ───────────────────────────────────────────────────────
     {
         category: 'motion',
         catLabel: 'Motion Edit',
         title: 'Never Give Up',
-        image: 'thumbnails/never give up cpy.jpg',
+        image: `${CLD_IMG}/never_give_up_cpy.jpg`,
         description: 'Motivational video edit with dynamic visual pacing.',
     },
     {
         category: 'motion',
         catLabel: 'Motion Edit',
         title: 'Never Give Up – Ep. 2',
-        image: 'thumbnails/never give up2  cpy.jpg',
+        image: `${CLD_IMG}/never_give_up2_cpy.jpg`,
         description: 'Continuation of a powerful inspirational video series.',
     },
     {
         category: 'motion',
         catLabel: 'Motion Edit',
         title: 'The Return',
-        image: 'thumbnails/returncpy.jpg',
+        image: `${CLD_IMG}/returncpy.jpg`,
         description: 'Dramatic comeback video with high-energy motion design.',
     },
     {
         category: 'motion',
         catLabel: 'Motion Edit',
         title: 'Speed Edit',
-        image: 'thumbnails/speed cpy.jpg',
+        image: `${CLD_IMG}/speed_cpy.jpg`,
         description: 'Fast-paced video edit showcasing technical motion skills.',
     },
 
@@ -323,28 +330,28 @@ const portfolioData = [
         category: 'branding',
         catLabel: 'Branding',
         title: 'Brand Identity – Vol. 1',
-        image: 'thumbnails/Artboard 1.png',
+        image: `${CLD_IMG}/Artboard_1.png`,
         description: 'Complete visual identity system for a modern brand.',
     },
     {
         category: 'branding',
         catLabel: 'Branding',
         title: 'Brand Identity – Vol. 2',
-        image: 'thumbnails/Artboard 2.png',
+        image: `${CLD_IMG}/Artboard_2.png`,
         description: 'Cohesive brand system with typography and color design.',
     },
     {
         category: 'branding',
         catLabel: 'Branding',
         title: 'Social Media Kit',
-        image: 'thumbnails/Artboard 3.png',
+        image: `${CLD_IMG}/Artboard_3.png`,
         description: 'Branded social media graphics for a consistent presence.',
     },
     {
         category: 'branding',
         catLabel: 'Branding',
         title: 'Visual Content Suite',
-        image: 'thumbnails/Artboard 4.png',
+        image: `${CLD_IMG}/Artboard_4.png`,
         description: 'Multi-platform creative suite for digital-first brands.',
     },
 
@@ -352,25 +359,25 @@ const portfolioData = [
     {
         category: 'instagram',
         title: 'Social Post',
-        image: 'portfolio/instagram/22.jpg',
+        image: `${CLD_IMG}/22.jpg`,
         description: 'Gaming social media creative.',
     },
     {
         category: 'instagram',
         title: 'Chuch Edit',
-        image: 'portfolio/instagram/chuchcuchuc.jpg',
+        image: `${CLD_IMG}/chuchcuchuc.jpg`,
         description: 'Eye-catching Instagram post design.',
     },
     {
         category: 'instagram',
         title: 'Haris – Post',
-        image: 'portfolio/instagram/harissss.jpg',
+        image: `${CLD_IMG}/harissss.jpg`,
         description: 'Clean and bold social media graphic.',
     },
     {
         category: 'instagram',
         title: 'Insta Post 2',
-        image: 'portfolio/instagram/insta post 2.jpg',
+        image: `${CLD_IMG}/insta_post_2.jpg`,
         description: 'Scroll-stopping Instagram creative.',
     },
 
@@ -378,31 +385,31 @@ const portfolioData = [
     {
         category: 'shorts',
         title: 'Resident Evil Shorts Edit',
-        video: 'portfolio/shorts/Residen evil shorts edit.mp4',
+        video: `${CLD_VID}/Residen_evil_shorts_edit.mp4`,
         description: 'Cinematic short-form edit inspired by Resident Evil.',
     },
     {
         category: 'shorts',
         title: 'Wesker Edit',
-        video: 'portfolio/shorts/Wesker edit.mp4',
+        video: `${CLD_VID}/Wesker_edit.mp4`,
         description: 'High-energy character edit featuring Wesker.',
     },
     {
         category: 'shorts',
         title: "Rabbi's Edit – Vol. 1",
-        video: "portfolio/shorts/rabbi's edit 1.mp4",
+        video: `${CLD_VID}/rabbi_s_edit_1.mp4`,
         description: 'Short-form gaming edit, Vol. 1.',
     },
     {
         category: 'shorts',
         title: "Rabbi's Edit – Vol. 2",
-        video: "portfolio/shorts/rabbi's edit 2.mp4",
+        video: `${CLD_VID}/rabbi_s_edit_2.mp4`,
         description: 'Short-form gaming edit, Vol. 2.',
     },
     {
         category: 'shorts',
         title: "Rabbi's Edit – Vol. 3",
-        video: "portfolio/shorts/rabbi's edit 3.mp4",
+        video: `${CLD_VID}/rabbi_s_edit_3.mp4`,
         description: 'Short-form gaming edit, Vol. 3.',
     },
 ];
